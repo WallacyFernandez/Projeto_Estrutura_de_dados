@@ -12,7 +12,6 @@
 #define TITULO_OPCAO6 "Consultar pontos de um dado dia"
 #define TITULO_OPCAO7 "Sair"
 
-
 #define N_OPCOES 7
 #define OPCAO1 '1'
 #define OPCAO2 '2'
@@ -23,63 +22,79 @@
 #define OPCAO7 '7'
 
 /****
-* Função: LimpaBuffer()
-* Descrição: Lê e descarta caracteres encontrados na entrada
-* Parâmetros: Nenhum
-* Retorno: Nada
-****/
-void LimpaBuffer(void) {
+ * Função: LimpaBuffer()
+ * Descrição: Lê e descarta caracteres encontrados na entrada
+ * Parâmetros: Nenhum
+ * Retorno: Nada
+ ****/
+void LimpaBuffer(void)
+{
     int valorLido; /* valorLido deve ser int! */
-    do {
+    do
+    {
         valorLido = getchar();
     } while ((valorLido != '\n') && (valorLido != EOF));
 }
 /****
-* Função: LeOpcao()
-* Descrição: Lê e valida a opção digitada pelo usuário
-* Parâmetros:
-*   menorValor (entrada): o menor valor válido
-*   maiorValor (entrada): o maior valor válido
-* Retorno: A opção lida é validada
-****/
-int LeOpcao(int menorValor, int maiorValor) {
-    int op;
+ * Função: LeOpcao()
+ * Descrição: Lê e valida a opção digitada pelo usuário
+ * Parâmetros:
+ *   menorValor (entrada): o menor valor válido
+ *   maiorValor (entrada): o maior valor válido
+ * Retorno: A opção lida é validada
+ ****/
+int LeOpcao()
+{
+    int retorno, retorno2, n1, letra;
 
-    while (1) {
+        retorno = 0;
+        while (retorno != 1)
+        {
 
-        printf("\nDigite sua opcao: ");
-        op = getchar();
+          printf("\nDigite sua opcao: ");
+          retorno2 = scanf("%d", &n1);
 
-        if (op >= menorValor && op <= maiorValor) {
-            LimpaBuffer();
-            break;
+          if (n1 >= 1 && n1 <= 7)
+          {
+
+            retorno = retorno2;
+          }
+
+          if (retorno == 0)
+          {
+            printf("\n---(Valor inserido invalido)---\n\n");
+          }
+
+          letra = 0;
+          while (letra != '\n')
+          {
+
+            letra = getchar();
+          }
+
+          
+          printf("\n");
         }
-
-        else {
-            printf("\nOpcao invalida. Tente novamente.");
-            printf("\nA opcao deve estar entre %c e %c. \n",
-                   menorValor, maiorValor);
-            LimpaBuffer();
-        }
-    }
-    return op;
+      
+    return n1;
 }
 /****
-* Função: LeInteiro()
-* Descrição: Lê um número inteiro introduzido pelo usuário
-* Parâmetros: Nenhum
-* Retorno: O inteiro lido
-****/
+ * Função: LeInteiro()
+ * Descrição: Lê um número inteiro introduzido pelo usuário
+ * Parâmetros: Nenhum
+ * Retorno: O inteiro lido
+ ****/
 
 /****
-* Função: ApresentaMenu
-* Descrição: Apresenta menu com número indeterminado de opções
-* Parâmetros:
-*   nItens (entrada): número de itens no menu
-*   menorOpcao (entrada): caractere associado ao item I
-* Retorno: Nada
-****/
-void ApresentaMenu(int nItens, int menorOpcao, ...) {
+ * Função: ApresentaMenu
+ * Descrição: Apresenta menu com número indeterminado de opções
+ * Parâmetros:
+ *   nItens (entrada): número de itens no menu
+ *   menorOpcao (entrada): caractere associado ao item I
+ * Retorno: Nada
+ ****/
+void ApresentaMenu(int nItens, int menorOpcao, ...)
+{
     int i;
     va_list argumentos;
     /* Inicia lista de argumentos variáveis */
@@ -87,103 +102,142 @@ void ApresentaMenu(int nItens, int menorOpcao, ...) {
     /* Lê cada argumento e imprime na tela. Note que o */
     /* tipo de cada argumento é char *, que é o tipo que */
     /* representa strings em C */
-    for(i = 0; i < nItens; ++i) {
+    for (i = 0; i < nItens; ++i)
+    {
         printf("%c-%s\n", menorOpcao++, va_arg(argumentos, char *));
     }
-    va_end(argumentos);/* Encerra processamento de argumentos */
+    va_end(argumentos); /* Encerra processamento de argumentos */
 }
 
-int main(void) {
-    
-   
+int main(void)
+{
 
-    int escolha;
-    Lista *lista = lst_cria(); /*Cria uma lista*/
+    int escolha, cpf1, verificacpf;
+    int retorno, retorno2, n1, letra;
+    Lista *lista = lst_cria();  /*Cria uma lista*/
     Listo *listo = lst_cria2(); /*Cria uma lista*/
     unsigned char op;
     unsigned int saida = 0;
 
-    do {
+    do
+    {
+        printf("\n");
+        printf("\n");
         ApresentaMenu(N_OPCOES, OPCAO1,
                       TITULO_OPCAO1, TITULO_OPCAO2,
                       TITULO_OPCAO3, TITULO_OPCAO4, TITULO_OPCAO5, TITULO_OPCAO6, TITULO_OPCAO7);
+         
+        
+        op = LeOpcao();
 
-        op = LeOpcao(OPCAO1, OPCAO1 + N_OPCOES - 1);
+        switch (op)
+        {
 
-        switch(op) {
-
-            case OPCAO1:
+        case 1:
 
             system("cls");
             printf("Cadrastar novo funcionario (1)\n");
-            printf("Cadrastar ponto de funcionario existente (2)\n");
+            printf("Cadrastar ponto(2)\n");
             printf("Escolha: ");
             scanf("%d", &escolha);
+            if (escolha == 1)
+            {
 
-            if (escolha == 1){
+                lista = lst_insere(lista); /*Insere o elemento na lista*/
+            }
+            else if (escolha == 2)
+            {
 
-            lista = lst_insere(lista); /*Insere o elemento na lista*/
+                printf("Digite o cpf do funcionario: \n");
+                scanf("%d", &cpf1);
 
+                verificacpf = lst_busca(cpf1, lista);
+
+                if (verificacpf == cpf1)
+                {
+
+                    listo = lst_insere2(listo);
+
+                    listo -> cpf = cpf1;
+                   
+                }
+                else
+                {
+
+                    printf("Funcionario nao existe\n");
+                }
             }
 
-            else if (escolha == 2){
+            break;
 
-            listo = lst_insere2(listo);
-
-            }
-
-                break;
-
-            case OPCAO2:
-                Beep(1000,500);
+        case 2:
+            
             printf("imprimir dados dos funcionarios(1)\n");
             printf("imprimir os pontos dos funcionarios(2)\n");
             printf("Escolha: ");
             scanf("%d", &escolha);
-            if (escolha == 1){
+            if (escolha == 1)
+            {
 
-            lst_imprime(lista);
-
+                lst_imprime(lista);
             }
-            else if (escolha == 2){
-                
-            lst_imprime2(lista);
+            else if (escolha == 2)
+            {
 
+                lst_imprime2(listo);
             }
-                
-                break;
 
-            case OPCAO3:
-                Beep(1000,500);
-                
-                break;
+            break;
 
-            case OPCAO4:
-                Beep(1000,500);
-                
-                break;
+        case 3:
+         
+                printf("Digite o cpf do funcionario: \n");
+                scanf("%d", &cpf1);
 
-            case OPCAO5:
-                Beep(1000,500);
-                
-                break;
+                verificacpf = lst_busca(cpf1, lista);
 
-            case OPCAO6:
-                Beep(1000,500);
-                
-                break;
+                if (verificacpf == cpf1)
+                {
 
-            case OPCAO7:
-                Beep(1000,500);
-                saida = 1;
-                printf("Obrigado por usar este programa.");
-                break;
+                 imprimepontodefuncionario(cpf1, listo);
+                   
+                }
+                else
+                {
 
+                    printf("Funcionario nao existe\n");
+                }
 
-            default:
-                printf("Este programa possui um bug.");
-                return 1;
+            break;
+
+        case 4:
+           
+
+            break;
+
+        case 5:
+           
+
+            break;
+
+        case 6:
+            
+
+            break;
+
+        case 7:
+           
+            saida = 1;
+            printf("Obrigado por usar este programa.");
+            break;
+
+        default:
+            printf("Este programa possui um bug.");
+            return 1;
         }
-    } while(!saida);
+    } while (!saida);
+
+    lst_libera(lista);
+    lst_libera2(listo);
     return 0;
 }

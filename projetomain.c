@@ -11,9 +11,9 @@
 
 int main(void)
 {
-    system("cls");
+ 
 
-    int escolha;
+    int escolha, cpf, verificacpf;
     Lista *lista = lst_cria(); /*Cria uma lista*/
     Listo *listo = lst_cria2(); /*Cria uma lista*/
     
@@ -44,13 +44,30 @@ int main(void)
 
             }
             else if (escolha == 2){
+            
+            printf("Digite o cpf do funcionario: \n");
+            scanf("%d", &cpf);
 
-            listo = lst_insere2(listo);
+            verificacpf = lst_busca(cpf, lista);
 
+            if(verificacpf == cpf){
+             
+
+             
+             
+
+             listo = lst_insere2(listo);
+
+            }
+            else{
+             
+             printf("Funcionario nao existe\n");
+
+            }
             }
             break;
         case 2:
-            system("cls");
+           
             printf("imprimir dados dos funcionarios(1)\n");
             printf("imprimir os pontos dos funcionarios(2)\n");
             printf("Escolha: ");
@@ -62,7 +79,7 @@ int main(void)
             }
             else if (escolha == 2){
                 
-            lst_imprime2(lista);
+            lst_imprime2(listo);
 
             }
             break;

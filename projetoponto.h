@@ -9,3 +9,5 @@ int lst_vazia2(Listo *l);
 void lst_imprime2(Listo*l);
 
 void lst_libera2(Listo* l);
+
+void imprimepontodefuncionario(int elemento, Listo *l);

@@ -36,18 +36,23 @@ Lista* lst_insere(Lista* l){
     
     printf("Digite o nome do funcionario: ");
     scanf(" %[^\n]", novo->nome);
+    
     printf("Digite o cpf do funcionario sem pontuacao: ");
     scanf("%d", &novo->cpf);
+
     printf("Digite o setor do funcionario: ");
     scanf(" %[^\n]", novo->setor);
-    printf("Digite o salario do funcionario: ");
-    scanf("%f", &novo->salario);
+    
     printf("Digite a data de contratação do funcionario: ");
     scanf(" %[^\n]", novo->datadecontratacao);
+
     printf("Digite a jornada de trabalho mensal do funcionario: ");
     scanf(" %[^\n]", novo->jornadadetrabalho);
+
+    printf("Digite o salario do funcionario: ");
+    scanf("%f", &novo->salario);
     
-    
+    system("cls");
 	novo->prox = l;
 	return novo;
 }
@@ -81,23 +86,26 @@ void lst_imprime(Lista*l){
     
 
 	}
+    
 
 }
 
 
 
-/*
+
 Lista * lst_busca(int elemento, Lista* l){
 	Lista * p;
 	for(p=l; p!=NULL; p=p->prox){
-		if(p->info ==elemento)
-			return p;
+		if(p->cpf == elemento)
+			return p -> cpf;
 	}
 
 	return NULL;
 
 }
-*/
+
+
+
 
 /*
 Lista * lst_retira(Lista*l, int v){
