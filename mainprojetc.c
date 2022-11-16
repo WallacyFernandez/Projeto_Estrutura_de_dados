@@ -5,14 +5,16 @@
 #include "projetoponto.c"
 
 #define TITULO_OPCAO1 "Cadrastrar ponto"
-#define TITULO_OPCAO2 "(Teste de imprimindo) Excluir ponto"
+#define TITULO_OPCAO2 "Excluir ponto"
 #define TITULO_OPCAO3 "Listar pontos marcados de um dado funcionario"
 #define TITULO_OPCAO4 "Buscar funcionario"
 #define TITULO_OPCAO5 "Editar cadratro de ponto"
 #define TITULO_OPCAO6 "Consultar pontos de um dado dia"
-#define TITULO_OPCAO7 "Sair"
+#define TITULO_OPCAO7 "Imprimir dados de todos os funcionarios"
+#define TITULO_OPCAO8 "imprimir todos os pontos dos funcionarios"
+#define TITULO_OPCAO9 "Sair"
 
-#define N_OPCOES 7
+#define N_OPCOES 9
 #define OPCAO1 '1'
 #define OPCAO2 '2'
 #define OPCAO3 '3'
@@ -20,6 +22,8 @@
 #define OPCAO5 '5'
 #define OPCAO6 '6'
 #define OPCAO7 '7'
+#define OPCAO8 '8'
+#define OPCAO9 '9'
 
 /****
  * Função: LimpaBuffer()
@@ -47,35 +51,68 @@ int LeOpcao()
 {
     int retorno, retorno2, n1, letra;
 
-        retorno = 0;
-        while (retorno != 1)
+    retorno = 0;
+    while (retorno != 1)
+    {
+
+        printf("\nDigite sua opcao: ");
+        retorno2 = scanf("%d", &n1);
+
+        if (n1 >= 1 && n1 <= 9)
         {
 
-          printf("\nDigite sua opcao: ");
-          retorno2 = scanf("%d", &n1);
-
-          if (n1 >= 1 && n1 <= 7)
-          {
-
             retorno = retorno2;
-          }
+        }
 
-          if (retorno == 0)
-          {
+        if (retorno == 0)
+        {
             printf("\n---(Valor inserido invalido)---\n\n");
-          }
+        }
 
-          letra = 0;
-          while (letra != '\n')
-          {
+        letra = 0;
+        while (letra != '\n')
+        {
 
             letra = getchar();
-          }
-
-          
-          printf("\n");
         }
-      
+
+        printf("\n");
+    }
+
+    return n1;
+}
+int LeOpcao2()
+{
+    int retorno, retorno2, n1, letra;
+
+    retorno = 0;
+    while (retorno != 1)
+    {
+
+        printf("\nDigite sua opcao: ");
+        retorno2 = scanf("%d", &n1);
+
+        if (n1 >= 1 && n1 <= 2)
+        {
+
+            retorno = retorno2;
+        }
+
+        if (retorno == 0)
+        {
+            printf("\n---(Valor inserido invalido)---\n\n");
+        }
+
+        letra = 0;
+        while (letra != '\n')
+        {
+
+            letra = getchar();
+        }
+
+        printf("\n");
+    }
+
     return n1;
 }
 /****
@@ -111,8 +148,10 @@ void ApresentaMenu(int nItens, int menorOpcao, ...)
 
 int main(void)
 {
-
-    int escolha, cpf1, verificacpf;
+    char data[100];
+    int escolha;
+    int verificacpf;
+    long long int cpf1;
     int retorno, retorno2, n1, letra;
     Lista *lista = lst_cria();  /*Cria uma lista*/
     Listo *listo = lst_cria2(); /*Cria uma lista*/
@@ -125,9 +164,8 @@ int main(void)
         printf("\n");
         ApresentaMenu(N_OPCOES, OPCAO1,
                       TITULO_OPCAO1, TITULO_OPCAO2,
-                      TITULO_OPCAO3, TITULO_OPCAO4, TITULO_OPCAO5, TITULO_OPCAO6, TITULO_OPCAO7);
-         
-        
+                      TITULO_OPCAO3, TITULO_OPCAO4, TITULO_OPCAO5, TITULO_OPCAO6, TITULO_OPCAO7, TITULO_OPCAO8, TITULO_OPCAO9);
+
         op = LeOpcao();
 
         switch (op)
@@ -138,95 +176,137 @@ int main(void)
             system("cls");
             printf("Cadrastar novo funcionario (1)\n");
             printf("Cadrastar ponto(2)\n");
-            printf("Escolha: ");
-            scanf("%d", &escolha);
+            escolha = LeOpcao2();
+            
             if (escolha == 1)
             {
-
+                
                 lista = lst_insere(lista); /*Insere o elemento na lista*/
             }
             else if (escolha == 2)
             {
 
                 printf("Digite o cpf do funcionario: \n");
-                scanf("%d", &cpf1);
+                scanf("%lld", &cpf1);
 
                 verificacpf = lst_busca(cpf1, lista);
 
-                if (verificacpf == cpf1)
+                if (verificacpf == 1)
                 {
 
                     listo = lst_insere2(listo);
 
-                    listo -> cpf = cpf1;
-                   
+                    listo->cpf = cpf1;
                 }
                 else
                 {
 
-                    printf("Funcionario nao existe\n");
+                    printf("\nFuncionario nao existe\n");
                 }
+            }else {
+
+
             }
 
             break;
 
         case 2:
-            
-            printf("imprimir dados dos funcionarios(1)\n");
-            printf("imprimir os pontos dos funcionarios(2)\n");
-            printf("Escolha: ");
-            scanf("%d", &escolha);
-            if (escolha == 1)
-            {
 
-                lst_imprime(lista);
+            printf("Digite o cpf do funcionario: \n");
+            scanf("%lld", &cpf1);
+
+            verificacpf = lst_busca(cpf1, lista);
+
+            if (verificacpf == 1)
+            {
+                printf("Deseja excluir pontos registrados por este funcionario? \n(1) sim \n(2) nao: \n");
+                escolha = LeOpcao2();
+
+                if (escolha == 1)
+                {
+
+                    listo = lst_retira(listo, cpf1);
+                }
+                else
+                {
+
+                    printf("\nVoltando ao inicio.\n");
+                }
             }
-            else if (escolha == 2)
+            else
             {
 
-                lst_imprime2(listo);
+                printf("\nFuncionario nao existe\n");
             }
 
             break;
 
         case 3:
-         
-                printf("Digite o cpf do funcionario: \n");
-                scanf("%d", &cpf1);
 
-                verificacpf = lst_busca(cpf1, lista);
+            printf("Digite o cpf do funcionario: \n");
+            scanf("%lld", &cpf1);
 
-                if (verificacpf == cpf1)
-                {
+            verificacpf = lst_busca(cpf1, lista);
 
-                 imprimepontodefuncionario(cpf1, listo);
-                   
-                }
-                else
-                {
+            if (verificacpf == 1)
+            {
 
-                    printf("Funcionario nao existe\n");
-                }
+                imprimepontodefuncionario(cpf1, listo);
+            }
+            else
+            {
+
+                printf("\nFuncionario nao existe\n");
+            }
 
             break;
 
         case 4:
-           
+
+            printf("Digite o cpf do funcionario: \n");
+            scanf("%lld", &cpf1);
+
+            verificacpf = lst_busca(cpf1, lista);
+
+            if (verificacpf == 1)
+            {
+
+                imprimefuncionario(cpf1, lista);
+            }
+            else
+            {
+
+                printf("\nFuncionario nao existe\n");
+            }
 
             break;
 
         case 5:
-           
+
+            listo = lst_editaponto(listo);
 
             break;
 
         case 6:
-            
+
+            lst_buscadata(listo);
 
             break;
 
         case 7:
-           
+
+            lst_imprime(lista);
+
+            break;
+
+        case 8:
+
+            lst_imprime2(listo);
+
+            break;
+
+        case 9:
+
             saida = 1;
             printf("Obrigado por usar este programa.");
             break;
