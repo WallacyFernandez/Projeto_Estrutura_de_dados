@@ -19,15 +19,15 @@ void lst_imprime(Lista*l);
 
 
 //função que busca um elemento na lista
-Lista * lst_busca(int elemento, Lista* l);
+Lista * lst_busca(long long int elemento, Lista* l);
 
 //função que retira um elemento da lista
-Lista * lst_retira(Lista*l, int v);
+
 
 //função que libera a memória alocada para a lista
 void lst_libera(Lista* l);
 
-
+void imprimefuncionario(long long int elemento, Lista *l);
 
 // função que insere de forma ordenada um elemento na lista
 Lista* lst_insere_ordenada(Lista * l, int v);

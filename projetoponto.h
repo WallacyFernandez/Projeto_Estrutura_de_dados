@@ -10,4 +10,10 @@ void lst_imprime2(Listo*l);
 
 void lst_libera2(Listo* l);
 
-void imprimepontodefuncionario(int elemento, Listo *l);
+void imprimepontodefuncionario(long long int elemento, Listo *l);
+
+void lst_buscadata(Listo *l);
+
+Listo * lst_retira(Listo*l, long long int elemento);
+
+Listo *lst_editaponto(Listo *l);
