@@ -28,6 +28,7 @@ Lista *lst_cria(void)
     return NULL;
 }
 
+
 Lista *lst_insere(Lista *l)
 {
     system("cls");
@@ -88,9 +89,86 @@ void lst_imprime(Lista *l)
     }
 }
 
-void imprimefuncionario(long long int elemento, Lista *l)
+void lst_imprimetxt(Lista *l)
 {
     system("cls");
+
+    Lista *p;
+     FILE *arquivo;
+              arquivo = fopen("banco.txt", "w");
+    for (p = l; p != NULL; p = p->prox)
+    {
+
+        
+            fprintf(arquivo, " %s\n %lld\n %s\n %.2f\n %s\n %s", p -> nome, p -> cpf, p -> setor, p -> salario, p-> datadecontratacao, p->jornadadetrabalho);
+             
+
+              
+    }
+
+    fclose(arquivo);
+}
+
+Lista *lst_lertxt(Lista *l)
+{
+    int inicializador;
+    
+
+    char nome[100];
+    long long int cpf;
+    char cargo[100];
+    char setor[100];
+    float salario;
+    char datadecontratacao[100];
+    char jornadadetrabalho[100];
+
+    FILE *banco;
+
+    banco = fopen("banco.txt", "r");
+
+    fscanf(banco, "%d", &inicializador);
+
+    if (banco == NULL)
+    {
+        printf("Não encontrado\n");
+    }
+    else
+    {
+    
+     for (int i = 0; i < inicializador; i++)
+     {
+        Lista *novo = (Lista *)malloc(sizeof(Lista));
+        fscanf(banco, " %[^\n] %[^\n] %lld %f %[^\n] %[^\n]", nome, setor, &cpf, &salario, datadecontratacao, jornadadetrabalho);
+        strcpy(novo -> nome, nome);
+        strcpy(novo -> setor, setor);
+        strcpy(novo -> datadecontratacao, datadecontratacao);
+        strcpy(novo -> jornadadetrabalho, jornadadetrabalho);
+        novo -> cpf = cpf;
+        novo-> salario = salario;
+        novo-> prox = l;
+        l = novo;
+        
+
+        
+     }
+     
+        
+     }
+        
+    
+          
+        
+        fclose(banco);
+
+    
+
+          
+          return l;
+}
+
+void imprimefuncionario(long long int elemento, Lista *l)
+{
+    system("cls"); 
     Lista *p;
 
     printf("\n----(Dados do funcionario)----\n\n");

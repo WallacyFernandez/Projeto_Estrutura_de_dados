@@ -150,10 +150,14 @@ int main(void)
 {
     char data[100];
     int escolha;
-    int verificacpf;
+    int verificacpf, inicializador = 0;
     long long int cpf1;
     int retorno, retorno2, n1, letra;
-    Lista *lista = lst_cria();  /*Cria uma lista*/
+    Lista *lista = lst_cria(); /*Cria uma lista*/
+    
+    lista = lst_lertxt(lista);
+
+
     Listo *listo = lst_cria2(); /*Cria uma lista*/
     unsigned char op;
     unsigned int saida = 0;
@@ -177,10 +181,19 @@ int main(void)
             printf("Cadrastar novo funcionario (1)\n");
             printf("Cadrastar ponto(2)\n");
             escolha = LeOpcao2();
-            
+
             if (escolha == 1)
             {
-                
+                Lista *p;
+                FILE *arq;
+
+                arq = fopen("banco.txt", "r");
+
+                fscanf(arq, "%d", &inicializador);
+
+                fclose(arq);
+
+                inicializador++;
                 lista = lst_insere(lista); /*Insere o elemento na lista*/
             }
             else if (escolha == 2)
@@ -203,9 +216,9 @@ int main(void)
 
                     printf("\nFuncionario nao existe\n");
                 }
-            }else {
-
-
+            }
+            else
+            {
             }
 
             break;
@@ -306,6 +319,20 @@ int main(void)
             break;
 
         case 9:
+
+            system("cls");
+
+            Lista *p;
+            FILE *arquivo;
+            arquivo = fopen("banco.txt", "w");
+            fprintf(arquivo, "%d ", inicializador);
+            for (p = lista; p != NULL; p = p->prox)
+            {
+
+             fprintf(arquivo, " %s\n %s\n %lld %.2f %s\n %s\n", p-> nome, p -> setor, p -> cpf, p -> salario, p -> datadecontratacao, p -> jornadadetrabalho);
+            }
+
+            fclose(arquivo);
 
             saida = 1;
             printf("Obrigado por usar este programa.");

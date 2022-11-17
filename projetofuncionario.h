@@ -32,3 +32,6 @@ void imprimefuncionario(long long int elemento, Lista *l);
 // função que insere de forma ordenada um elemento na lista
 Lista* lst_insere_ordenada(Lista * l, int v);
 
+void lst_imprimetxt(Lista *l);
+
+Lista *lst_lertxt(Lista *l);
