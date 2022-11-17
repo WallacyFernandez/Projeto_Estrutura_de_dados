@@ -45,7 +45,7 @@ Lista *lst_insere(Lista *l)
     printf("Digite o setor do funcionario: ");
     scanf(" %[^\n]", novo->setor);
 
-    printf("Digite a data de contratação do funcionario: ");
+    printf("Digite a data de contratacao do funcionario: ");
     scanf(" %[^\n]", novo->datadecontratacao);
 
     printf("Digite a jornada de trabalho mensal do funcionario: ");
