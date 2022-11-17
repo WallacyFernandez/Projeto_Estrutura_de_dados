@@ -7,7 +7,7 @@ Listas encadeadas são estruturas de dados que permitem armazenar uma coleção
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "projetofuncionario.h"
+#include "funcionario.h"
 
 struct lista
 {

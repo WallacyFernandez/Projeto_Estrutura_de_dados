@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <windows.h>
-#include "projetofuncionario.c"
-#include "projetoponto.c"
+#include "funcionario.c"
+#include "ponto.c"
 
 #define TITULO_OPCAO1 "Cadrastrar ponto"
 #define TITULO_OPCAO2 "Excluir ponto"
@@ -153,10 +153,16 @@ int main(void)
     int verificacpf, inicializador = 0;
     long long int cpf1;
     int retorno, retorno2, n1, letra;
-    Lista *lista = lst_cria(); /*Cria uma lista*/
-    
-    lista = lst_lertxt(lista);
+    FILE *arq;
 
+    arq = fopen("banco.txt", "r");
+
+    fscanf(arq, "%d", &inicializador);
+
+    fclose(arq);
+    Lista *lista = lst_cria(); /*Cria uma lista*/
+
+    lista = lst_lertxt(lista);
 
     Listo *listo = lst_cria2(); /*Cria uma lista*/
     unsigned char op;
@@ -185,13 +191,6 @@ int main(void)
             if (escolha == 1)
             {
                 Lista *p;
-                FILE *arq;
-
-                arq = fopen("banco.txt", "r");
-
-                fscanf(arq, "%d", &inicializador);
-
-                fclose(arq);
 
                 inicializador++;
                 lista = lst_insere(lista); /*Insere o elemento na lista*/
@@ -329,7 +328,7 @@ int main(void)
             for (p = lista; p != NULL; p = p->prox)
             {
 
-             fprintf(arquivo, " %s\n %s\n %lld %.2f %s\n %s\n", p-> nome, p -> setor, p -> cpf, p -> salario, p -> datadecontratacao, p -> jornadadetrabalho);
+                fprintf(arquivo, " %s\n %s\n %lld %.2f %s\n %s\n", p->nome, p->setor, p->cpf, p->salario, p->datadecontratacao, p->jornadadetrabalho);
             }
 
             fclose(arquivo);
