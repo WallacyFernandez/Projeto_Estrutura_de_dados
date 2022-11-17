@@ -130,7 +130,7 @@ Lista *lst_lertxt(Lista *l)
 
     if (banco == NULL)
     {
-        printf("Não encontrado\n");
+        printf("Banco de dados Vazio.\n");
     }
     else
     {
