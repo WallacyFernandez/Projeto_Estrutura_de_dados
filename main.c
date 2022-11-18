@@ -25,28 +25,16 @@
 #define OPCAO8 '8'
 #define OPCAO9 '9'
 
-/****
- * Função: LimpaBuffer()
- * Descrição: Lê e descarta caracteres encontrados na entrada
- * Parâmetros: Nenhum
- * Retorno: Nada
- ****/
+
 void LimpaBuffer(void)
 {
-    int valorLido; /* valorLido deve ser int! */
+    int valorLido; 
     do
     {
         valorLido = getchar();
     } while ((valorLido != '\n') && (valorLido != EOF));
 }
-/****
- * Função: LeOpcao()
- * Descrição: Lê e valida a opção digitada pelo usuário
- * Parâmetros:
- *   menorValor (entrada): o menor valor válido
- *   maiorValor (entrada): o maior valor válido
- * Retorno: A opção lida é validada
- ****/
+
 int LeOpcao()
 {
     int retorno, retorno2, n1, letra;
@@ -115,42 +103,28 @@ int LeOpcao2()
 
     return n1;
 }
-/****
- * Função: LeInteiro()
- * Descrição: Lê um número inteiro introduzido pelo usuário
- * Parâmetros: Nenhum
- * Retorno: O inteiro lido
- ****/
 
-/****
- * Função: ApresentaMenu
- * Descrição: Apresenta menu com número indeterminado de opções
- * Parâmetros:
- *   nItens (entrada): número de itens no menu
- *   menorOpcao (entrada): caractere associado ao item I
- * Retorno: Nada
- ****/
+
+
 void ApresentaMenu(int nItens, int menorOpcao, ...)
 {
     int i;
     va_list argumentos;
-    /* Inicia lista de argumentos variáveis */
+   
     va_start(argumentos, menorOpcao);
-    /* Lê cada argumento e imprime na tela. Note que o */
-    /* tipo de cada argumento é char *, que é o tipo que */
-    /* representa strings em C */
+    
     for (i = 0; i < nItens; ++i)
     {
         printf("%c-%s\n", menorOpcao++, va_arg(argumentos, char *));
     }
-    va_end(argumentos); /* Encerra processamento de argumentos */
+    va_end(argumentos); 
 }
 
 int main(void)
 {
     char data[100];
     int escolha;
-    int verificacpf, inicializador = 0;
+    int verificacpf, inicializador = 0, inicializador2 = 0;
     long long int cpf1;
     int retorno, retorno2, n1, letra;
     FILE *arq;
@@ -160,11 +134,25 @@ int main(void)
     fscanf(arq, "%d", &inicializador);
 
     fclose(arq);
+
+    FILE *ponto2;
+
+    ponto2 = fopen("banco2.txt", "r");
+
+    fscanf(ponto2, "%d ", &inicializador2);
+
+    fclose(ponto2);
+
+    
+
     Lista *lista = lst_cria(); /*Cria uma lista*/
 
     lista = lst_lertxt(lista);
 
     Listo *listo = lst_cria2(); /*Cria uma lista*/
+
+    listo = lst_lertxt2(listo);
+
     unsigned char op;
     unsigned int saida = 0;
 
@@ -206,6 +194,7 @@ int main(void)
                 if (verificacpf == 1)
                 {
 
+                    inicializador2++;
                     listo = lst_insere2(listo);
 
                     listo->cpf = cpf1;
@@ -236,7 +225,7 @@ int main(void)
 
                 if (escolha == 1)
                 {
-
+                    inicializador2 = 0;
                     listo = lst_retira(listo, cpf1);
                 }
                 else
@@ -332,8 +321,34 @@ int main(void)
             }
 
             fclose(arquivo);
+            
+            Listo *t;
+            if(t == NULL){
+
+             FILE *ponto;
+            ponto = fopen("banco2.txt", "w");
+
+            fprintf(ponto, "%d ", 0);
+
+            fclose(ponto);
+
+            }else{
+                
+                FILE *ponto;
+            ponto = fopen("banco2.txt", "w");
+            fprintf(ponto, "%d ", inicializador2);
+            for (t = listo; t != NULL; t = t->proz)
+            {
+
+                fprintf(ponto, " %s\n %s\n %lld %.2f %s\n %s\n %s\n", t->diadomes, t->localizacao, t->cpf, t->quantidadedehoras, t->horariodeentrada, t->horariodesaida, t->pausa);
+            }
+
+            fclose(ponto);
+            }
+            
 
             saida = 1;
+
             printf("Obrigado por usar este programa.");
             break;
 

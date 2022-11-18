@@ -17,3 +17,5 @@ void lst_buscadata(Listo *l);
 Listo * lst_retira(Listo*l, long long int elemento);
 
 Listo *lst_editaponto(Listo *l);
+
+Listo *lst_lertxt2(Listo *l);

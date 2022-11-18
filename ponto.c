@@ -66,7 +66,7 @@ void lst_imprime2(Listo *l)
     for (p = l; p != NULL; p = p->proz)
     {
 
-        printf("\n----(Dados do ponto)----\n\n");
+        printf("\n----(Dados do ponto cadastrado no dia %s)----\n\n", p -> diadomes);
 
         printf("Localizacao: %s\n", p->localizacao);
 
@@ -86,6 +86,53 @@ void lst_imprime2(Listo *l)
             printf("Cpf: %lld\n", p->cpf);
         }
     }
+}
+
+Listo *lst_lertxt2(Listo *l)
+{
+    int inicializador2;
+
+    char diadomes[100];
+    long long int cpf;
+    char localizacao[100];
+    char horariodeentrada[100];
+    char horariodesaida[100];
+    float quantidadedehoras;
+    char pausa[100];
+
+    FILE *banco;
+
+    banco = fopen("banco2.txt", "r");
+
+    fscanf(banco, "%d ", &inicializador2);
+
+    if (banco == NULL)
+    {
+        printf("Banco de dados Vazio.\n");
+    }
+    else
+    {
+
+        for (int i = 0; i < inicializador2; i++)
+        {
+            Listo *novo = (Listo *)malloc(sizeof(Listo));
+            fscanf(banco, " %[^\n] %[^\n] %lld %f %[^\n] %[^\n] %[^\n]", diadomes, localizacao, &cpf, &quantidadedehoras, horariodeentrada, horariodesaida, pausa);
+            strcpy(novo->diadomes, diadomes);
+            strcpy(novo->localizacao, localizacao);
+            strcpy(novo->horariodeentrada, horariodeentrada);
+            strcpy(novo->horariodesaida, horariodesaida);
+            strcpy(novo->pausa, pausa);
+
+            novo->cpf = cpf;
+            novo->quantidadedehoras = quantidadedehoras;
+            novo->proz = l;
+            l = novo;
+        }
+    }
+
+    fclose(banco);
+
+    return l;
 }
 
 void imprimepontodefuncionario(long long int elemento, Listo *l)
@@ -153,11 +200,11 @@ void lst_buscadata(Listo *l)
         }
     }
 
-    if (result == 1){
+    if (result == 1)
+    {
 
         printf("\nNenhum ponto cadastrado nesta data.\n");
     }
-
 }
 
 Listo *lst_editaponto(Listo *l)
@@ -181,27 +228,26 @@ Listo *lst_editaponto(Listo *l)
             printf("\n----(Dados do ponto)----\n\n");
 
             printf("Digite o data exemplo (12/03/2022): ");
-            scanf(" %[^\n]", p -> diadomes);
+            scanf(" %[^\n]", p->diadomes);
 
             printf("Digite a localizacao: ");
-            scanf(" %[^\n]", p -> localizacao);
+            scanf(" %[^\n]", p->localizacao);
 
             printf("Digite o horario de entrada (12:30): ");
-            scanf(" %[^\n]", & p -> horariodeentrada);
+            scanf(" %[^\n]", &p->horariodeentrada);
 
             printf("Digite o horario de saida (17:30): ");
-            scanf(" %[^\n]", p -> horariodesaida);
+            scanf(" %[^\n]", p->horariodesaida);
 
             printf("Pausa exemplo (14:00) a (14:30): ");
-            scanf(" %[^\n]", p -> pausa);
+            scanf(" %[^\n]", p->pausa);
 
             printf("Digite o total de horas trabalhadas: ");
-            scanf("%f", & p -> quantidadedehoras);
-
-           
+            scanf("%f", &p->quantidadedehoras);
         }
     }
-    if (result == 1){
+    if (result == 1)
+    {
 
         printf("\nNenhum ponto cadastrado nesta data.\n");
     }
@@ -211,27 +257,30 @@ Listo *lst_editaponto(Listo *l)
 
 Listo *lst_retira(Listo *l, long long int elemento)
 {
-    Listo *ant = NULL; // ponteiro para elemento anterior
-    Listo *p = l;      // ponteiro para percorrer a lista
 
-    // procura elemento na lista, guardando anterior
+    Listo *ant = NULL; 
+    Listo *p = l;      
+
+for (p = l; p != NULL; p = p->proz){
 
     while (p->cpf != elemento)
     {
         if (p == NULL)
-            return l; // n�o achou: retorna lista original
+            return l; 
         ant = p;
         p = p->proz;
-        // verifica se achou elemento
+        
     }
-    // retira elemento
+    
     if (ant == NULL)
-        // retira elemento do inicio
+       
         l = p->proz;
     else
-        // retira elemento do meio da lista
+        
         ant->proz = p->proz;
     free(p);
+}
+    
 
     return l;
 }

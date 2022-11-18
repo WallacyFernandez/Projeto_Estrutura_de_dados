@@ -28,7 +28,6 @@ Lista *lst_cria(void)
     return NULL;
 }
 
-
 Lista *lst_insere(Lista *l)
 {
     system("cls");
@@ -94,16 +93,12 @@ void lst_imprimetxt(Lista *l)
     system("cls");
 
     Lista *p;
-     FILE *arquivo;
-              arquivo = fopen("banco.txt", "w");
+    FILE *arquivo;
+    arquivo = fopen("banco.txt", "w");
     for (p = l; p != NULL; p = p->prox)
     {
 
-        
-            fprintf(arquivo, " %s\n %lld\n %s\n %.2f\n %s\n %s", p -> nome, p -> cpf, p -> setor, p -> salario, p-> datadecontratacao, p->jornadadetrabalho);
-             
-
-              
+        fprintf(arquivo, " %s\n %lld\n %s\n %.2f\n %s\n %s", p->nome, p->cpf, p->setor, p->salario, p->datadecontratacao, p->jornadadetrabalho);
     }
 
     fclose(arquivo);
@@ -112,7 +107,6 @@ void lst_imprimetxt(Lista *l)
 Lista *lst_lertxt(Lista *l)
 {
     int inicializador;
-    
 
     char nome[100];
     long long int cpf;
@@ -134,41 +128,30 @@ Lista *lst_lertxt(Lista *l)
     }
     else
     {
-    
-     for (int i = 0; i < inicializador; i++)
-     {
-        Lista *novo = (Lista *)malloc(sizeof(Lista));
-        fscanf(banco, " %[^\n] %[^\n] %lld %f %[^\n] %[^\n]", nome, setor, &cpf, &salario, datadecontratacao, jornadadetrabalho);
-        strcpy(novo -> nome, nome);
-        strcpy(novo -> setor, setor);
-        strcpy(novo -> datadecontratacao, datadecontratacao);
-        strcpy(novo -> jornadadetrabalho, jornadadetrabalho);
-        novo -> cpf = cpf;
-        novo-> salario = salario;
-        novo-> prox = l;
-        l = novo;
-        
 
-        
-     }
-     
-        
-     }
-        
-    
-          
-        
-        fclose(banco);
+        for (int i = 0; i < inicializador; i++)
+        {
+            Lista *novo = (Lista *)malloc(sizeof(Lista));
+            fscanf(banco, " %[^\n] %[^\n] %lld %f %[^\n] %[^\n]", nome, setor, &cpf, &salario, datadecontratacao, jornadadetrabalho);
+            strcpy(novo->nome, nome);
+            strcpy(novo->setor, setor);
+            strcpy(novo->datadecontratacao, datadecontratacao);
+            strcpy(novo->jornadadetrabalho, jornadadetrabalho);
+            novo->cpf = cpf;
+            novo->salario = salario;
+            novo->prox = l;
+            l = novo;
+        }
+    }
 
-    
+    fclose(banco);
 
-          
-          return l;
+    return l;
 }
 
 void imprimefuncionario(long long int elemento, Lista *l)
 {
-    system("cls"); 
+    system("cls");
     Lista *p;
 
     printf("\n----(Dados do funcionario)----\n\n");
@@ -211,30 +194,7 @@ Lista *lst_busca(long long int elemento, Lista *l)
     return NULL;
 }
 
-/*
-Lista * lst_retira(Lista*l, int v){
-    Lista* ant = NULL; /* ponteiro para elemento anterior
-    Lista* p = l; /* ponteiro para percorrer a lista
-    /* procura elemento na lista, guardando anterior
-    while(p->info!=v){
-        if (p==NULL)
-            return l; /* n�o achou: retorna lista original
-        ant = p;
-        p = p->prox;
-            /* verifica se achou elemento
 
-    }
-    /* retira elemento
-    if (ant==NULL)
-    /* retira elemento do inicio
-        l = p->prox;
-    else
-    /* retira elemento do meio da lista
-        ant->prox = p->prox;
-    free(p);
-    return l;
-}
-*/
 
 void lst_libera(Lista *l)
 {
@@ -247,27 +207,3 @@ void lst_libera(Lista *l)
         p = t;
     }
 }
-
-/*
-Lista* lst_insere_ordenada(Lista * l, int v){
-    Lista * novo;
-    Lista * ant = NULL;
-    Lista * p =l;
-    while(p!=NULL && p->info<v){
-        ant = p;
-        p = p->prox;
-
-    }
-    novo = (Lista*) malloc(sizeof(Lista));
-    novo->info = v;
-    if(ant ==NULL){
-        novo->prox = l;
-        l = novo;
-    }
-    else {
-        novo->prox = ant-> prox;
-        ant->prox = novo;
-    }
-    return l;
-}
-*/
