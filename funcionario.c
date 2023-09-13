@@ -182,7 +182,7 @@ void imprimefuncionario(long long int elemento, Lista *l)
     }
 }
 
-Lista *lst_busca(long long int elemento, Lista *l)
+int lst_busca(long long int elemento, Lista *l)
 {
     Lista *p;
     for (p = l; p != NULL; p = p->prox)
